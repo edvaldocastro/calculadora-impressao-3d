@@ -1,70 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calculadora de Custo de Impressão 3D</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f0f2f5; }
-    .container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    h2 { text-align: center; margin-bottom: 20px; }
-    label { display: block; margin-top: 10px; }
-    input { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
-    button { margin-top: 20px; padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%; }
-    button:hover { background-color: #0056b3; }
-    .result { margin-top: 20px; font-weight: bold; font-size: 1.1em; background: #e9ecef; padding: 10px; border-radius: 5px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f0f2f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.1em;
+      background: #e9ecef;
+      padding: 10px;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Calculadora de Custo de Impressão 3D</h2>
-    <label>Filamento usado (g): <input type="number" id="filamento"></label>
-    <label>Preço do filamento (€/kg): <input type="number" id="precoFilamento" value="15"></label>
-    <label>Tempo de impressão (h): <input type="number" id="tempo"></label>
-    <label>Preço da energia (€/kWh): <input type="number" id="precoEnergia" value="0.80"></label>
-    <label>Consumo médio da impressora (W): <input type="number" id="consumo" value="50"></label>
-    <label>Desgaste da impressora (€/h): <input type="number" id="desgaste" value="0.70"></label>
-    <label>Mão de obra (h): <input type="number" id="tempoMaoObra" value="0.5"></label>
-    <label>Custo da mão de obra (€/h): <input type="number" id="custoMaoObra" value="15"></label>
-    <label>Margem de lucro (%): <input type="number" id="lucro" value="20"></label>
+
+    <label>Filamento usado (g):
+      <input type="number" id="filamento" />
+    </label>
+    <label>Preço do filamento (€/kg):
+      <input type="number" id="precoFilamento" value="15" />
+    </label>
+    <label>Tempo de impressão (h):
+      <input type="number" id="tempo" />
+    </label>
+    <label>Preço da energia (€/kWh):
+      <input type="number" id="precoEnergia" value="0.80" />
+    </label>
+    <label>Consumo médio da impressora (W):
+      <input type="number" id="consumo" value="50" />
+    </label>
+    <label>Desgaste da impressora (€/h):
+      <input type="number" id="desgaste" value="0.70" />
+    </label>
+    <label>Mão de obra (h):
+      <input type="number" id="tempoMaoObra" value="0.5" />
+    </label>
+    <label>Custo da mão de obra (€/h):
+      <input type="number" id="custoMaoObra" value="15" />
+    </label>
+    <label>Margem de lucro (%):
+      <input type="number" id="lucro" value="20" />
+    </label>
+
     <button id="calcular">Calcular Custo Total</button>
     <div class="result" id="resultado"></div>
   </div>
 
   <script>
-  function calcular() {
-    const filamento = parseFloat(document.getElementById('filamento').value);
-    const precoFilamento = parseFloat(document.getElementById('precoFilamento').value);
-    const tempo = parseFloat(document.getElementById('tempo').value);
-    const precoEnergia = parseFloat(document.getElementById('precoEnergia').value);
-    const consumo = parseFloat(document.getElementById('consumo').value) / 1000;
-    const desgaste = parseFloat(document.getElementById('desgaste').value);
-    const tempoMaoObra = parseFloat(document.getElementById('tempoMaoObra').value);
-    const custoMaoObra = parseFloat(document.getElementById('custoMaoObra').value);
-    const lucroPercentual = parseFloat(document.getElementById('lucro').value);
+    function calcular() {
+      const filamento = parseFloat(document.getElementById('filamento').value) || 0;
+      const precoFilamento = parseFloat(document.getElementById('precoFilamento').value) || 0;
+      const tempo = parseFloat(document.getElementById('tempo').value) || 0;
+      const precoEnergia = parseFloat(document.getElementById('precoEnergia').value) || 0;
+      const consumo = (parseFloat(document.getElementById('consumo').value) || 0) / 1000;
+      const desgaste = parseFloat(document.getElementById('desgaste').value) || 0;
+      const tempoMaoObra = parseFloat(document.getElementById('tempoMaoObra').value) || 0;
+      const custoMaoObra = parseFloat(document.getElementById('custoMaoObra').value) || 0;
+      const lucroPercentual = parseFloat(document.getElementById('lucro').value) || 0;
 
-    const custoFilamento = (filamento / 1000) * precoFilamento;
-    const custoEnergia = tempo * consumo * precoEnergia;
-    const custoDesgaste = tempo * desgaste;
-    const custoMaoObra = tempoMaoObra * custoMaoObra;
+      const custoFilamento = (filamento / 1000) * precoFilamento;
+      const custoEnergia = tempo * consumo * precoEnergia;
+      const custoDesgaste = tempo * desgaste;
+      const custoMaoObra = tempoMaoObra * custoMaoObra;
 
-    const subtotal = custoFilamento + custoEnergia + custoDesgaste + custoMaoObra;
-    const lucro = subtotal * (lucroPercentual / 100);
-    const total = subtotal + lucro;
+      const subtotal = custoFilamento + custoEnergia + custoDesgaste + custoMaoObra;
+      const lucro = subtotal * (lucroPercentual / 100);
+      const total = subtotal + lucro;
 
-    document.getElementById('resultado').innerHTML = `
-      Custo do Filamento: €${custoFilamento.toFixed(2)}<br>
-      Custo de Energia: €${custoEnergia.toFixed(2)}<br>
-      Desgaste da Impressora: €${custoDesgaste.toFixed(2)}<br>
-      Mão de Obra: €${custoMaoObra.toFixed(2)}<br>
-      Subtotal: €${subtotal.toFixed(2)}<br>
-      Margem de Lucro: €${lucro.toFixed(2)}<br>
-      <strong>Preço Final: €${total.toFixed(2)}</strong>
-    `;
-  }
+      document.getElementById('resultado').innerHTML = `
+        Custo do Filamento: €${custoFilamento.toFixed(2)}<br>
+        Custo de Energia: €${custoEnergia.toFixed(2)}<br>
+        Desgaste da Impressora: €${custoDesgaste.toFixed(2)}<br>
+        Mão de Obra: €${custoMaoObra.toFixed(2)}<br>
+        Subtotal: €${subtotal.toFixed(2)}<br>
+        Margem de Lucro: €${lucro.toFixed(2)}<br>
+        <strong>Preço Final: €${total.toFixed(2)}</strong>
+      `;
+    }
 
-  document.getElementById('calcular').addEventListener('click', calcular);
-</script>
+    document.getElementById('calcular').addEventListener('click', calcular);
+  </script>
 </body>
 </html>
-
