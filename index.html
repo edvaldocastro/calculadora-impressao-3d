@@ -92,39 +92,40 @@
     <div class="result" id="resultado"></div>
   </div>
 
+  <!-- Script só roda depois que o HTML todo carregou -->
   <script>
-    function calcular() {
-      const filamento = parseFloat(document.getElementById('filamento').value) || 0;
-      const precoFilamento = parseFloat(document.getElementById('precoFilamento').value) || 0;
-      const tempo = parseFloat(document.getElementById('tempo').value) || 0;
-      const precoEnergia = parseFloat(document.getElementById('precoEnergia').value) || 0;
-      const consumo = (parseFloat(document.getElementById('consumo').value) || 0) / 1000;
-      const desgaste = parseFloat(document.getElementById('desgaste').value) || 0;
-      const tempoMaoObra = parseFloat(document.getElementById('tempoMaoObra').value) || 0;
-      const custoMaoObra = parseFloat(document.getElementById('custoMaoObra').value) || 0;
-      const lucroPercentual = parseFloat(document.getElementById('lucro').value) || 0;
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('calcular').addEventListener('click', function () {
+        const filamento = parseFloat(document.getElementById('filamento').value) || 0;
+        const precoFilamento = parseFloat(document.getElementById('precoFilamento').value) || 0;
+        const tempo = parseFloat(document.getElementById('tempo').value) || 0;
+        const precoEnergia = parseFloat(document.getElementById('precoEnergia').value) || 0;
+        const consumo = (parseFloat(document.getElementById('consumo').value) || 0) / 1000;
+        const desgaste = parseFloat(document.getElementById('desgaste').value) || 0;
+        const tempoMaoObra = parseFloat(document.getElementById('tempoMaoObra').value) || 0;
+        const custoMaoObra = parseFloat(document.getElementById('custoMaoObra').value) || 0;
+        const lucroPercentual = parseFloat(document.getElementById('lucro').value) || 0;
 
-      const custoFilamento = (filamento / 1000) * precoFilamento;
-      const custoEnergia = tempo * consumo * precoEnergia;
-      const custoDesgaste = tempo * desgaste;
-      const custoMaoObra = tempoMaoObra * custoMaoObra;
+        const custoFilamento = (filamento / 1000) * precoFilamento;
+        const custoEnergia = tempo * consumo * precoEnergia;
+        const custoDesgaste = tempo * desgaste;
+        const custoMaoObra = tempoMaoObra * custoMaoObra;
 
-      const subtotal = custoFilamento + custoEnergia + custoDesgaste + custoMaoObra;
-      const lucro = subtotal * (lucroPercentual / 100);
-      const total = subtotal + lucro;
+        const subtotal = custoFilamento + custoEnergia + custoDesgaste + custoMaoObra;
+        const lucro = subtotal * (lucroPercentual / 100);
+        const total = subtotal + lucro;
 
-      document.getElementById('resultado').innerHTML = `
-        Custo do Filamento: €${custoFilamento.toFixed(2)}<br>
-        Custo de Energia: €${custoEnergia.toFixed(2)}<br>
-        Desgaste da Impressora: €${custoDesgaste.toFixed(2)}<br>
-        Mão de Obra: €${custoMaoObra.toFixed(2)}<br>
-        Subtotal: €${subtotal.toFixed(2)}<br>
-        Margem de Lucro: €${lucro.toFixed(2)}<br>
-        <strong>Preço Final: €${total.toFixed(2)}</strong>
-      `;
-    }
-
-    document.getElementById('calcular').addEventListener('click', calcular);
+        document.getElementById('resultado').innerHTML = `
+          Custo do Filamento: €${custoFilamento.toFixed(2)}<br>
+          Custo de Energia: €${custoEnergia.toFixed(2)}<br>
+          Desgaste da Impressora: €${custoDesgaste.toFixed(2)}<br>
+          Mão de Obra: €${custoMaoObra.toFixed(2)}<br>
+          Subtotal: €${subtotal.toFixed(2)}<br>
+          Margem de Lucro: €${lucro.toFixed(2)}<br>
+          <strong>Preço Final: €${total.toFixed(2)}</strong>
+        `;
+      });
+    });
   </script>
 </body>
 </html>
